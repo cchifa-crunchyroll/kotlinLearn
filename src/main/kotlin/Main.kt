@@ -8,11 +8,11 @@ fun main(args: Array<String>) {
 
     println("1: "+capitalizeSentence("paradox paralax"))
     println("2: "+getOdd(listOf(1,2,3,4,5,6,7,8)))
-    println("3: "+containsRange(1..12,5..12))
+    println("3: "+containsRange(5..7,5..7))
     println("4: "+addUpTo(3))
-    println("5: "+getIndex(arrayOf('A','B','C','D'),'B'))
+    println("5: "+getIndex(arrayOf('A','B','C','D'),'C'))
     println("6: "+countDown(5))
-    println("7: "+countUpAndDown(5))
+    println("7: "+countUpAndDown(2))
     println("8: "+formatTrainRoute(listOf("test","paradox","paralax")))
     println("9: "+getAllPairs(3))
     println("10: "+countUniqueValues(listOf(1,1,1,2,4)))
@@ -33,68 +33,17 @@ fun main(args: Array<String>) {
     println("25: "+hasRepeateCharacter("abscda"))
     println("26: "+encodeCaesarCipher("xyz",1))
 }
-
-fun capitalizeSentence(string :String) : String{
-    var stringOutput = "";
-    string.split(" ").map {
-        stringOutput += it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } +" "
-    }
-    return stringOutput.trim()
-}
-
-fun getOdd(list:List<Int>): List<Int>{
-    return list.filter {
-        it % 2 != 0
-    }
-}
-
-fun containsRange(range1:IntRange,range2:IntRange):Boolean{
-    var isContains = false
-    range2.forEach {
-        isContains = range1.contains(it)
-    }
-
-    return isContains
-}
-
-fun addUpTo(n:Int):Int{
-    var sum = 0
-    for (i in 0..n){
-        sum+=i
-    }
-    return sum
-}
-
-fun getIndex(list:Array<Char>,char:Char):Int{
-    var i = 0
-    list.map {
-        if (it.equals(char))
-            return i
-        i++
-    }
-    return -1
-}
-
-fun countDown(n:Int):List<Int>{
-    var list = ArrayList<Int>()
-
-    for (i in n downTo 0){
-        list.add(i)
-    }
-    return list
-}
-
-fun countUpAndDown(n:Int):List<Int>{
-    var list = ArrayList<Int>()
-
-    for (i in 0..n){
-        list.add(i)
-    }
-    for (i in n-1 downTo 0){
-        list.add(i)
-    }
-    return list
-}
+fun capitalizeSentence(string :String) =
+    string
+        .split(" ")
+        .map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
+        .joinToString(" ")
+fun getOdd(list:List<Int>) = list.filter { it % 2 != 0 }
+fun containsRange(range1:IntRange,range2:IntRange) = range1.filter { range2.contains(it) }.size == range2.toList().size
+fun addUpTo(n:Int) = (0..n).toList().reduce { x, y -> x + y }
+fun getIndex(list:Array<Char>,char:Char) = list.indexOf(char)
+fun countDown(n:Int) = (n downTo 0).toList()
+fun countUpAndDown(n:Int) = (0..n-1).toList() + (n downTo 0).toList()
 
 fun formatTrainRoute(list:List<String>):String{
     var string = "Train is calling at"
@@ -145,16 +94,7 @@ fun countUniqueValues(list:List<Int>):Int{
 
     return countUnique
 }
-
-fun printNumber(n:Int):List<Int>{
-    var list = ArrayList<Int>()
-
-    for (i in n downTo 1){
-        list.add(i)
-    }
-    return list
-}
-
+fun printNumber(n:Int) = (n downTo 1).toList()
 fun power(x:Int,y:Int):Int{
     var result = y;
     for (i in 1..x-1){
@@ -162,7 +102,6 @@ fun power(x:Int,y:Int):Int{
     }
     return result
 }
-
 fun factorial(n:Int):Int{
     var result = 1;
     for (i in 1..n){

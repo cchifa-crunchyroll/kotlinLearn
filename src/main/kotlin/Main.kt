@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     println("20: "+maxChar("ccccccorrrrrwwwwwwwwwwwwwwwwwwii"))
     println("21: "+reverse("hello"))
     println("22: "+vowels("Why do you ask?"))
-//    println("23: \n"+pyramid(3))
+    println("23: \n"+pyramid(8))
     println("24: "+fizzBuzz(5))
     println("25: "+hasRepeateCharacter("abscda"))
     println("26: "+encodeCaesarCipher("xyz",1))
@@ -266,18 +266,21 @@ fun reverse(string: String):String{
 fun vowels(string: String) = string.filter { "aeiouy".contains(it) }.length
 
 fun pyramid(levels:Int):String{
-    var character = '#'
+    var characterFill= '#'
+    var characterEmpty = ' '
     var renderedString = ""
-    for (i in levels-1 downTo 0){
-        for (j in 0..(levels+levels/1.5).toInt()){
 
-            renderedString += character
+    for (i in 0..levels-1){
+        for(j in 0..levels*2-2){
+            if(j>=((levels*2-1)/2)-i && j<= ((levels*2-1)/2)+i) {
+                renderedString+=characterFill
+            }
+            else if (j<((levels*2-1)/2)-i){
+                renderedString+=characterEmpty
+            }
         }
         renderedString+="\n"
     }
-//    for (i in 0..levels){
-//
-//    }
     return renderedString
 }
 

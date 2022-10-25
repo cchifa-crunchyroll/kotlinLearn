@@ -1,9 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Bool
-import java.lang.StringBuilder
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.timerTask
-
 fun main(args: Array<String>) {
 
     println("1: "+capitalizeSentence("paradox paralax"))
@@ -18,8 +14,8 @@ fun main(args: Array<String>) {
     println("10: "+countUniqueValues(listOf(1,1,1,2,4)))
     println("11: "+printNumber(5))
     println("12: "+power(3,3))
-    println("13: "+factorial(2))
-    println("14: "+product(arrayOf(1,2,3,4,5)))
+    println("13: "+factorial(3))
+    println("14: "+product(arrayOf(1,2,4)))
     println("15: "+capitalizeFirst(listOf("first","second","last")))
     println("16: "+decapitalizeConst("__FOO_BAR_ZAR"))
     println("17: "+longestWord("hi hello hihihihihi hahosa"))
@@ -33,18 +29,16 @@ fun main(args: Array<String>) {
     println("25: "+hasRepeateCharacter("abscda"))
     println("26: "+encodeCaesarCipher("xyz",1))
 }
-fun capitalizeSentence(string :String) =
-    string
-        .split(" ")
-        .map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
-        .joinToString(" ")
+fun capitalizeSentence(string :String) = string
+    .split(" ")
+    .joinToString(" ") { it
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
 fun getOdd(list:List<Int>) = list.filter { it % 2 != 0 }
 fun containsRange(range1:IntRange,range2:IntRange) = range1.filter { range2.contains(it) }.size == range2.toList().size
 fun addUpTo(n:Int) = (0..n).toList().reduce { x, y -> x + y }
 fun getIndex(list:Array<Char>,char:Char) = list.indexOf(char)
 fun countDown(n:Int) = (n downTo 0).toList()
 fun countUpAndDown(n:Int) = (0..n-1).toList() + (n downTo 0).toList()
-
 fun formatTrainRoute(list:List<String>):String{
     var string = "Train is calling at"
     var newString = " "
@@ -58,11 +52,9 @@ fun formatTrainRoute(list:List<String>):String{
         else {
             newString += "${list.get(i)}, "
         }
-
     }
     return string + newString
 }
-
 fun getAllPairs(n: Int):List<Pair<Int,Int>>{
     var listOfAllNumbers = ArrayList<Int>()
     var pairList = ArrayList<Pair<Int,Int>>()
@@ -76,10 +68,8 @@ fun getAllPairs(n: Int):List<Pair<Int,Int>>{
     }
     return pairList
 }
-
 fun countUniqueValues(list:List<Int>):Int{
     var countUnique = 0
-
     for (i in 0..list.size-1){
         var isUnique = true
         for (j in 0..list.size-1){
@@ -87,11 +77,9 @@ fun countUniqueValues(list:List<Int>):Int{
             if (list.get(i)==list.get(j)){
                 isUnique = false
             }
-
         }
         if (isUnique) countUnique++
     }
-
     return countUnique
 }
 fun printNumber(n:Int) = (n downTo 1).toList()
@@ -109,17 +97,8 @@ fun factorial(n:Int):Int{
     }
     return result
 }
-
-fun product(list:Array<Int>):Int{
-    var result = 1
-    for (i in list){
-        result*=i
-    }
-    return result
-}
-
+fun product(list:Array<Int>) = list.reduce{ x,y -> x*y}
 fun capitalizeFirst(list:List<String>) = list.map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }  }
-
 fun decapitalizeConst(string: String):String{
     var outputString = ""
     var stringList = string.split("[^a-zA-Z\\d\\s: ]".toRegex()).filter { it != "" }
@@ -133,21 +112,7 @@ fun decapitalizeConst(string: String):String{
     }
     return outputString
 }
-
-fun longestWord(string:String):String{
-    var max = 0
-    var maxString = ""
-    string.split(" ").forEach{
-        if (it.length>max){
-            max = it.length
-            maxString = it
-        }
-    }
-
-    return maxString
-        //string.split(" ").sortedBy { it.length }.last()
-}
-
+fun longestWord(string:String) = string.split(" ").sortedBy { it.length }.last()
 fun palindrome(string: String):Boolean{
     if (string.length % 2 == 0){
         for (i in 0..string.length-1){
@@ -166,7 +131,6 @@ fun palindrome(string: String):Boolean{
     }
     return true
 }
-
 fun anagrams(string1: String,string2: String):Boolean{
 
     var str1 = string1.replace(("[^A-Za-z0-9 ]").toRegex(),"").lowercase(Locale.getDefault()).filter { !it.isWhitespace() }.toSortedSet()
@@ -174,7 +138,6 @@ fun anagrams(string1: String,string2: String):Boolean{
 
     return str1.equals(str2)
 }
-
 fun maxChar(string:String):Char{
     var max = 0
     var maxChar = string.get(0)
@@ -193,7 +156,6 @@ fun maxChar(string:String):Char{
     }
     return maxChar
 }
-
 fun reverse(string: String):String{
     var reversedString = ""
     for (i in string.length-1 downTo 0){
@@ -201,9 +163,7 @@ fun reverse(string: String):String{
     }
     return reversedString
 }
-
 fun vowels(string: String) = string.filter { "aeiouy".contains(it) }.length
-
 fun pyramid(levels:Int):String{
     var characterFill= '#'
     var characterEmpty = ' '
@@ -222,7 +182,6 @@ fun pyramid(levels:Int):String{
     }
     return renderedString
 }
-
 fun fizzBuzz(n:Int):ArrayList<Any>{
     var list = ArrayList<Any>()
     for (i in 1..n){
@@ -238,15 +197,12 @@ fun fizzBuzz(n:Int):ArrayList<Any>{
             list.add(i)
         }
     }
-
     var list2 = ArrayList<Any>()
     for (i in 1..n){
         list2.add(i)
     }
-
     return list
 }
-
 fun hasRepeateCharacter(string: String):Boolean{
     for (i in 0..string.length-1){
         for (j in 0..string.length-1){
@@ -256,7 +212,6 @@ fun hasRepeateCharacter(string: String):Boolean{
     }
     return false
 }
-
 fun encodeCaesarCipher(string: String,n:Int):String{
     var alphabet = "abcdefghijklmnopqrstuvwxyz"
     var outputString = ""
@@ -269,7 +224,6 @@ fun encodeCaesarCipher(string: String,n:Int):String{
                 else{
                     outputString+=alphabet.get(alphabet.length-1-j)
                 }
-
             }
         }
     }
